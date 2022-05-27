@@ -1,2 +1,2 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Count notebooks as python.
+*.ipynb linguist-language=Python
