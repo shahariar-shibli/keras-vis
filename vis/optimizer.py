@@ -57,12 +57,13 @@ class Optimizer(object):
                 self.loss_functions.append(loss_fn)
 
         # Compute gradient of overall with respect to `wrt` tensor.
-        if self.wrt_tensor_is_input_tensor:
-            grads = K.gradients(overall_loss, self.input_tensor)[0]
-        else:
-            grads = K.gradients(overall_loss, self.wrt_tensor)[0]
-        if norm_grads:
-            grads = K.l2_normalize(grads)
+        with tf.GradientTape() as gtape:
+            if self.wrt_tensor_is_input_tensor:
+                grads = gtape.gradient(overall_loss, self.input_tensor)[0]
+            else:
+                grads = gtape.gradient(overall_loss, self.wrt_tensor)[0]
+            if norm_grads:
+                grads = K.l2_normalize(grads)
 
         # The main function to compute various quantities in optimization loop.
         self.compute_fn = K.function([self.input_tensor, K.learning_phase()],
