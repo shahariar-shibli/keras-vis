@@ -30,7 +30,7 @@ def _find_penultimate_layer(model, layer_idx, penultimate_layer_idx):
         for idx, layer in utils.reverse_enumerate(model.layers[:layer_idx - 1]):
             if isinstance(layer, Wrapper):
                 layer = layer.layer
-            if isinstance(layer, (_Conv, _Pooling1D, _Pooling2D, _Pooling3D)):
+            if isinstance(layer, (Conv2D, _Pooling1D, _Pooling2D, _Pooling3D)):
                 penultimate_layer_idx = idx
                 break
 
