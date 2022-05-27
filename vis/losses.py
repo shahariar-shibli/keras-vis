@@ -78,7 +78,7 @@ class ActivationMaximization(Loss):
         # For all other layers it is 4
         is_dense = K.ndim(layer_output) == 2
 
-        loss = 0.
+        loss = 0
         for idx in self.filter_indices:
             if is_dense:
                 loss += -K.mean(layer_output[:, idx])
